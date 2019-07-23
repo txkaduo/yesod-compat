@@ -1,0 +1,36 @@
+name:                yesod-compat
+version:             0.1.0.0
+synopsis:            Compatible layer between yesod-related libraries
+-- description:
+license:             BSD3
+license-file:        LICENSE
+author:              Gilbert Fine
+maintainer:          gilbert.fine@gmail.com
+copyright:           2019 Gilbert Fine
+category:            Web
+build-type:          Simple
+extra-source-files:  README.md
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Yesod.Compat
+  build-depends:       base >= 4.7 && < 5
+                     , classy-prelude
+                     , classy-prelude-yesod
+                     , transformers
+                     , safe-exceptions
+                     , unliftio
+                     , yesod
+                     , conduit
+                     , resourcet
+                     , persistent
+
+  default-language:    Haskell2010
+
+  ghc-options: -Wall -fwarn-tabs -fwarn-redundant-constraints -fno-warn-partial-type-signatures
+
+  default-extensions: CPP
+                      NoImplicitPrelude
+                      ConstraintKinds
+                      FlexibleContexts
