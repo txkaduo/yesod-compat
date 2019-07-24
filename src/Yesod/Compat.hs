@@ -5,6 +5,7 @@ module Yesod.Compat
 
 import ClassyPrelude.Yesod
 import Control.Monad.Trans.Except
+import System.Environment
 
 #if MIN_VERSION_yesod(1, 6, 0)
 import Control.Monad.Trans.Resource
@@ -157,3 +158,20 @@ type MonadHandlerMask m = (MonadUnliftIO m)
 type MonadHandlerCatch m = (HandlerCatchMod.MonadCatch m)
 type MonadHandlerMask m = (HandlerCatchMod.MonadMask m)
 #endif
+
+
+-- | New keter may use env name YESOD_HOST, YESOD_PORT instead of HOST, PORT.
+-- This function copy HOST/PORT to YESOD_HOST/YESOD_PORT if the latter does not exist.
+migrateOldYesodEnv :: IO ()
+migrateOldYesodEnv = do
+  migrate_env "HOST" "YESOD_HOST"
+  migrate_env "PORT" "YESOD_PORT"
+  where migrate_env old new = do
+          mv1 <- lookupEnv new
+          case mv1 of
+            Just v1 | not (null v1) -> return ()
+            _ -> do
+              mv2 <- lookupEnv old
+              case mv2 of
+                Just v2 | not (null v2) -> setEnv new v2
+                _ -> return ()
