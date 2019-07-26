@@ -146,9 +146,9 @@ catchAnyExceptT = catch
 
 -- constraints of runSqlPool has been changed from (MonadBaseControl IO m) to (MonadUnliftIO m)
 #if MIN_VERSION_persistent(2, 8, 0)
-type RunSqlMonad m = (MonadUnliftIO m)
+type RunSqlBaseMonad m = (MonadUnliftIO m)
 #else
-type RunSqlMonad m = (MonadBaseControl IO m)
+type RunSqlBaseMonad m = (MonadBaseControl IO m)
 #endif
 
 
