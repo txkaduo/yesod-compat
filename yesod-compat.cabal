@@ -25,6 +25,8 @@ library
                      , conduit
                      , resourcet
                      , persistent
+                     , lifted-async
+                     , monad-control
 
   default-language:    Haskell2010
 

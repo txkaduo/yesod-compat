@@ -14,9 +14,13 @@ import Control.Monad.Trans.Resource
 -- but in old yesod, we have MonadCatch and MonadMask.
 -- So sometimes we need UnliftIO.tryAny, sometimes we need Control.Monad.Catch.tryAny
 #if MIN_VERSION_yesod(1, 6, 0)
-import qualified UnliftIO as HandlerCatchMod hiding (fromEitherM)
+import qualified UnliftIO.Exception as HandlerCatchMod hiding (fromEitherM)
 #else
 import qualified Control.Exception.Safe as HandlerCatchMod
+#endif
+
+#if MIN_VERSION_classy_prelude(1, 5, 0)
+import Control.Monad.Trans.Control (MonadBaseControl)
 #endif
 
 
@@ -158,6 +162,9 @@ type MonadHandlerMask m = (MonadUnliftIO m)
 type MonadHandlerCatch m = (HandlerCatchMod.MonadCatch m)
 type MonadHandlerMask m = (HandlerCatchMod.MonadMask m)
 #endif
+
+
+type MonadBaseControlAsync m = (MonadBaseControl IO m)
 
 
 -- | New keter may use env name YESOD_HOST, YESOD_PORT instead of HOST, PORT.
