@@ -3,7 +3,7 @@ module Yesod.Compat
   , module HandlerCatchMod
   ) where
 
-import ClassyPrelude
+import ClassyPrelude hiding (Handler)
 import Yesod
 import Data.Conduit
 import Control.Monad.Trans.Except
