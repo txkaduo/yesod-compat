@@ -3,7 +3,9 @@ module Yesod.Compat
   , module HandlerCatchMod
   ) where
 
-import ClassyPrelude.Yesod
+import ClassyPrelude
+import Yesod
+import Data.Conduit
 import Control.Monad.Trans.Except
 import System.Environment
 
